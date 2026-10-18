@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataDrop.Android", "DataDrop.Android\DataDrop.Android.csproj", "{F2FBC63E-B051-47B7-B40A-6E68FD8E19F1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataDrop.Desktop", "DataDrop.Desktop\DataDrop.Desktop.csproj", "{FE751463-7927-4B02-9712-0E647A4A2E33}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataDrop.Core", "DataDrop.Core\DataDrop.Core.csproj", "{C2BA99B4-F3F7-4102-8323-9DCD8D6738CE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F2FBC63E-B051-47B7-B40A-6E68FD8E19F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2FBC63E-B051-47B7-B40A-6E68FD8E19F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2FBC63E-B051-47B7-B40A-6E68FD8E19F1}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{F2FBC63E-B051-47B7-B40A-6E68FD8E19F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2FBC63E-B051-47B7-B40A-6E68FD8E19F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2FBC63E-B051-47B7-B40A-6E68FD8E19F1}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{FE751463-7927-4B02-9712-0E647A4A2E33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE751463-7927-4B02-9712-0E647A4A2E33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE751463-7927-4B02-9712-0E647A4A2E33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE751463-7927-4B02-9712-0E647A4A2E33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2BA99B4-F3F7-4102-8323-9DCD8D6738CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2BA99B4-F3F7-4102-8323-9DCD8D6738CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2BA99B4-F3F7-4102-8323-9DCD8D6738CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2BA99B4-F3F7-4102-8323-9DCD8D6738CE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
