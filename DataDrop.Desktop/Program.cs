@@ -1,9 +1,16 @@
 ﻿namespace DataDrop.Desktop;
 
-class Program
+internal static class Program
 {
-    static void Main(string[] args)
+    private static int Main()
     {
-        Console.WriteLine("Hello, World!");
+        using var application = Gtk.Application.New("com.datadrop.Desktop", Gio.ApplicationFlags.FlagsNone);
+        application.OnActivate += (_, _) =>
+        {
+            var window = application.ActiveWindow ?? MainWindow.Create(application);
+            window.Present();
+        };
+
+        return application.RunWithSynchronizationContext(null);
     }
 }

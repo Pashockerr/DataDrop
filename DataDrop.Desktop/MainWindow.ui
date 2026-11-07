@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0" />
+  <object class="GtkApplicationWindow" id="main_window">
+    <property name="title">DataDrop</property>
+    <property name="default-width">800</property>
+    <property name="default-height">500</property>
+    <child>
+      <object class="GtkBox" id="page">
+        <property name="orientation">vertical</property>
+        <property name="spacing">12</property>
+        <property name="margin-top">24</property>
+        <property name="margin-bottom">24</property>
+        <property name="margin-start">24</property>
+        <property name="margin-end">24</property>
+        <child>
+          <object class="GtkBox" id="connect_row">
+            <property name="spacing">12</property>
+            <child>
+              <object class="GtkEntry" id="connect_entry">
+                <property name="placeholder-text">Port</property>
+                <property name="hexpand">true</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton" id="connect_button">
+                <property name="label">Connect</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkBox" id="server_row">
+            <property name="spacing">12</property>
+            <child>
+              <object class="GtkEntry" id="server_entry">
+                <property name="placeholder-text">Port</property>
+                <property name="hexpand">true</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton" id="server_button">
+                <property name="label">Start server</property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

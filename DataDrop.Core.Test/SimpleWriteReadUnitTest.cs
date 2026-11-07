@@ -1,3 +1,5 @@
+using System.Security.Authentication;
+
 namespace DataDrop.Core.Test;
 
 using Core;
@@ -5,29 +7,37 @@ using Core;
 [TestFixture]
 public class SimpleWriteReadUnitTest
 {
-    [SetUp]
-    public void Setup()
-    {
-    }
-    
     [Test]
-    public async Task SendAndRecieveAsync()
+    public async Task RejectsUntrustedServerAsync()
     {
-        Server.Server server = new();
-        server.StartServer(1487);
-        server.OnClientConnected += async () => await server.SendMessageAsync(new TextMessage("Test luptidoo"));
-        Task acceptTask = server.AcceptClientAsync();
+        var serverCerts = SecurityManager.GenerateCertificate("server-password");
+        var clientCerts = SecurityManager.GenerateCertificate("client-password");
+        using Peer server = new(serverCerts.PrivateCert, "server-password", 1337);
+        using Peer client = new(clientCerts.PrivateCert, "client-password", 1337);
+        using var timeout = new CancellationTokenSource(TimeSpan.FromSeconds(10));
+        Task listenTask = server.ListenAsync(timeout.Token);
+        Task connectTask = client.ConnectAsync("localhost", 1337, timeout.Token);
 
-        Client.Client client = new();
-        client.OnConnectedToServer += async () =>
+        Assert.ThrowsAsync<AuthenticationException>(async () => await connectTask);
+        // Observe both tasks: the server can finish TLS before learning of rejection.
+        try
         {
-            var receivedMessage = await client.GetTextMessageAsync();
-            if(receivedMessage is TextMessage textMessage)
-                Console.WriteLine($"Got message: {textMessage.Text}");
-        };
-        await client.ConnectToServerAsync("127.0.0.1",  1487);
-        await acceptTask;
-        
-        Assert.Pass();
+            await Task.WhenAll(listenTask, connectTask);
+        }
+        catch (AuthenticationException)
+        {
+        }
+        Assert.That(client.IsReady(), Is.False);
+    }
+
+    [Test]
+    public async Task ListenCanBeCancelledAsync()
+    {
+        var certs = SecurityManager.GenerateCertificate("password");
+        using Peer server = new(certs.PrivateCert, "password", 1337);
+        using var timeout = new CancellationTokenSource(TimeSpan.FromMilliseconds(100));
+        Assert.CatchAsync<OperationCanceledException>(async () =>
+            await server.ListenAsync(timeout.Token));
+        Assert.That(server.IsReady(), Is.False);
     }
 }
