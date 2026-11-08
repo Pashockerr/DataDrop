@@ -9,6 +9,7 @@ namespace DataDrop.Core;
 public class Peer(ReadOnlySpan<byte> certificate, string password, int port) : IDisposable
 {
     private TcpClient? _connection;
+    private NetworkStream? _networkStream;
     private SslStream? _tls;
     private readonly X509Certificate _tlsServerCertificate = X509CertificateLoader.LoadPkcs12(certificate, password);
     public delegate Task Ready();
@@ -40,7 +41,7 @@ public class Peer(ReadOnlySpan<byte> certificate, string password, int port) : I
         
         if (OnReady != null) await OnReady();
     }
-
+    
     public async Task ListenAsync(CancellationToken cancellationToken = default)
     {
         using TcpListener listener = new(IPAddress.Any, port);
@@ -89,4 +90,12 @@ public class Peer(ReadOnlySpan<byte> certificate, string password, int port) : I
         _connection?.Dispose();
         _tlsServerCertificate.Dispose();
     }
+    
+    /* TODO: encryption
+    PAKE over TCP(using BouncingCastle lib)
+    Generate key from key material from PAKE
+    Complete key confirmation
+    Encrypt each message via AES-GCM and send over raw tcp stream
+    Verify and decode data
+    */
 }
